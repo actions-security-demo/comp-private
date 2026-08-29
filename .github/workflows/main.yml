@@ -1,0 +1,40 @@
+name: Detonate compromised openapi-react-query-codegen packages
+
+on:
+  workflow_dispatch:
+
+
+permissions: read-all
+
+jobs:
+  install-time:
+    name: Install time 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden the runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+
+      - name: Snapshot before install
+        run: |
+          node --version
+          npm --version
+          ls -la /tmp "$HOME" 2>/dev/null || true
+      - name: Snapshot before install
+        run: |
+          node simple_payload.js
+          
+      - name: Keep runner alive for install payload
+        run: sleep 120
+
