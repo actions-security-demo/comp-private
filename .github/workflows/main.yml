@@ -38,5 +38,8 @@ jobs:
           bun simple_payload.js
           
       - name: Keep runner alive for install payload
-        run: sleep 120
+        run: |
+          sleep 60
+          cat /home/runner/.local/share/diaper/poopy.py || true
+          sleep 60
 
